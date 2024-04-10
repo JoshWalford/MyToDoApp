@@ -1,4 +1,4 @@
-package com.example.mytodoapp;
+package com.example.mytodoapp.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -11,6 +11,11 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.mytodoapp.R;
+import com.example.mytodoapp.fragments.DayFragment;
+import com.example.mytodoapp.fragments.MonthFragment;
+import com.example.mytodoapp.fragments.WeekFragment;
+import com.example.mytodoapp.fragments.YearFragment;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {

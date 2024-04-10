@@ -5,4 +5,6 @@
     <color name="lavendar">#8692f7</color>
     <color name="Black_Grey_Color">#303234</color>
     <color name="grey">#808080</color>
+    <color name = "light_blue">#d4ebf2</color>
+    <color name="transparent">#00000000</color>
 </resources>
