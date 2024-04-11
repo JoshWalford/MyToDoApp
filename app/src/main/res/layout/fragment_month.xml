@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,12 +7,16 @@
     android:background="@color/Black_Grey_Color"
     tools:context=".fragments.MonthFragment">
 
-    <CalendarView
-        android:id="@+id/calendar1"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp">
-    </CalendarView>
+        android:layout_height="wrap_content">
+
+        <CalendarView
+            android:id="@+id/calendar1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp">
+        </CalendarView>
 
     <TextView
         android:id="@+id/month_txt"
@@ -20,7 +24,7 @@
         android:layout_height="50dp"
         android:layout_marginLeft="10dp"
         android:layout_marginBottom="10dp"
-        android:layout_above="@id/setBtn"
+        android:layout_below="@id/setBtn"
         android:textColor="@color/white"
         android:textSize="15sp"
         android:textAlignment="center"
@@ -44,16 +48,19 @@
     </TextView>
 
     <Button
-        android:id="@+id/time_picker"
+        android:id="@+id/timeBtn"
         android:layout_width="60dp"
         android:layout_height="50dp"
         android:layout_toRightOf="@id/month_txt"
-        android:layout_above="@id/cancelBtn"
+        android:layout_below="@id/cancelBtn"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="70dp"
         android:layout_marginLeft="35dp"
         android:background="@drawable/plus_icon">
     </Button>
+
+    <include layout="@layout/todolayout"
+        android:visibility="gone"/>
 
     <Button
         android:id="@+id/setBtn"
@@ -61,7 +68,8 @@
         android:layout_height="wrap_content"
         android:text="set"
         android:layout_marginStart="20dp"
-        android:layout_alignParentBottom="true">
+        android:layout_below="@id/time_month"
+        android:background="@color/transparent">
     </Button>
 
     <Button
@@ -70,9 +78,11 @@
         android:layout_height="wrap_content"
         android:text="cancel"
         android:layout_marginStart="20dp"
-        android:layout_alignParentBottom="true"
-        android:layout_toEndOf="@id/month_txt">
+        android:layout_below="@id/time_month"
+        android:layout_toEndOf="@id/month_txt"
+        android:background="@color/transparent">
     </Button>
 
+    </RelativeLayout>
 
-</RelativeLayout>
+</FrameLayout>

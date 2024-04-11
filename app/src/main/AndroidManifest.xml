@@ -27,6 +27,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activities.AddTaskActivity"
+            android:exported="false">
+        </activity>
+
         <receiver android:name=".activities.AlarmReceiver"/>
     </application>
 

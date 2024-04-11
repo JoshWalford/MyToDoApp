@@ -19,27 +19,27 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CalendarView;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.mytodoapp.R;
 import com.example.mytodoapp.activities.AlarmReceiver;
+import com.example.mytodoapp.database.DBHandler;
 
 import java.util.Calendar;
 
 public class MonthFragment extends Fragment {
-
     private CalendarView calendarView;
-
     private TimePicker timePicker;
     private TextView textView;
-    private Button timeBtn,attachBtn,setBtn,cancelBtn;
+    private Button timeBtn,setBtn,cancelBtn;
     private TextView selectedTime;
-
     private AlarmManager alarmManager;
-
     private PendingIntent pendingIntent;
+    private LinearLayout todoLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,13 +50,15 @@ public class MonthFragment extends Fragment {
         calendarView = view.findViewById(R.id.calendar1);
         textView = view.findViewById(R.id.month_txt);
 
-        timeBtn = view.findViewById(R.id.time_picker);
+        timeBtn = view.findViewById(R.id.timeBtn);
         selectedTime = view.findViewById(R.id.time_month);
 
         setBtn = view.findViewById(R.id.setBtn);
         cancelBtn = view.findViewById(R.id.cancelBtn);
         alarmManager = (AlarmManager) requireActivity().getSystemService(ALARM_SERVICE);
 
+        todoLayout = view.findViewById(R.id.todoLayout);
+        todoLayout.setVisibility(View.GONE);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             if (!alarmManager.canScheduleExactAlarms()) {
@@ -76,11 +78,15 @@ public class MonthFragment extends Fragment {
         timeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showTimePickerDialog();
+               if (todoLayout.getVisibility() == View.VISIBLE) {
+                   todoLayout.setVisibility(View.GONE);
+               } else {
+                   todoLayout.setVisibility(View.VISIBLE);
+               }
+                //showTimePickerDialog();
             }
         });
 
-        timePicker = new TimePicker(requireActivity());
 
         setAlarm();
 
@@ -88,6 +94,12 @@ public class MonthFragment extends Fragment {
     }
 
     private void showTimePickerDialog() {
+
+        timePicker = new TimePicker(requireActivity());
+
+        timePicker.setIs24HourView(true);
+        timePicker.setHour(Calendar.getInstance().get(Calendar.HOUR_OF_DAY));
+        timePicker.setMinute(Calendar.getInstance().get(Calendar.MINUTE));
         TimePickerDialog timePickerDialog = new TimePickerDialog(getActivity(), new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
@@ -105,11 +117,11 @@ public class MonthFragment extends Fragment {
             public void onClick(View v) {
                 Calendar calendar = Calendar.getInstance();
 
-                int hourOfDay = timePicker.getHour();
+               /* int hourOfDay = timePicker.getHour();
                 int minute = timePicker.getMinute();
 
                 calendar.set(Calendar.HOUR_OF_DAY,hourOfDay);
-                calendar.set(Calendar.MINUTE,minute);
+                calendar.set(Calendar.MINUTE,minute);*/
 
                 calendar.set(Calendar.DAY_OF_MONTH,(int) calendarView.getDate());
 
@@ -129,8 +141,9 @@ public class MonthFragment extends Fragment {
             public void onClick(View v) {
                 alarmManager.cancel(pendingIntent);
                 Toast.makeText(requireActivity(),"Alarm off",Toast.LENGTH_SHORT).show();
-                Log.d("MainActivity","Alarm cancled");
+                Log.d("MainActivity","Alarm cancelled");
             }
         });
     }
+
 }
